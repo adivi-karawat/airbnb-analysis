@@ -13,7 +13,7 @@ This project evaluates whether Airbnb pricing power is driven primarily by geogr
 
 ---
 
-## 📂 Data Source
+### 📂 Data Source
 
 Dataset: U.S. Airbnb Open Data (2020)  
 Source: Kaggle  
@@ -32,7 +32,7 @@ The dataset includes listing-level information such as price, room type, host ID
 
 ---
 
-## 📂 Project Structure
+### 📂 Project Structure
 
 1. Market Structure Analysis  
 2. Host Professionalization  
@@ -43,36 +43,34 @@ The dataset includes listing-level information such as price, room type, host ID
 
 ---
 
-# 🧹 Data Cleaning & Validation
+## 🧹 Data Cleaning & Validation
 
-The dataset was audited and cleaned in SQL before analysis in Python.
+The dataset was audited and cleaned in SQL before analysis in Python. Some of the key cleaning steps were:
 
-### Key Cleaning Steps
-
-### 1. Duplicate ID Conflict
+#### 1. Duplicate ID Conflict
 - Listing ID `43806155` was assigned to two different properties across different cities.
 - Since listing ID should uniquely identify a property, both rows were removed.
 
-### 2. Invalid Price Values
+#### 2. Invalid Price Values
 - Removed 62 listings with `price = 0`.
 - These would distort pricing analysis and regression modeling.
 
-### 3. Unrealistic Minimum Nights
+#### 3. Unrealistic Minimum Nights
 - Removed 65 listings with `minimum_nights > 365`
 - Included extreme values such as 100,000,000 nights (likely scraping errors).
 
-### 4. Geographic Validation
+#### 4. Geographic Validation
 - Verified US latitude/longitude ranges.
 - No anomalies detected.
 
-### Final Dataset
+#### Final Dataset
 **225,901 listings**
 
 ---
 
-# 📊 Exploratory Findings
+## 📊 Exploratory Findings
 
-## 1️⃣ Market Concentration
+### 1️⃣ Market Concentration
 
 Airbnb is meaningfully professionalized.
 
@@ -84,7 +82,7 @@ Airbnb is not purely casual — a meaningful portion of inventory is professiona
 
 ---
 
-## 2️⃣ Inventory Specialization
+### 2️⃣ Inventory Specialization
 
 Percentage distribution of listings by room type within each host tier:
 
@@ -95,7 +93,7 @@ Percentage distribution of listings by room type within each host tier:
 | Single Listing         | 69.75%          | 0.06%      | 29.17%       | 1.01%       |
 | Small Host (2–5)       | 57.55%          | 0.54%      | 40.41%       | 1.51%       |
 
-### Interpretation
+#### Interpretation:
 
 - Enterprise hosts are heavily concentrated in **Entire Home/Apt** listings.
 - Small hosts maintain the highest exposure to **Private Rooms**.
@@ -106,20 +104,20 @@ This supports the hypothesis that larger operators strategically focus on full-u
 
 ---
 
-## 3️⃣ Geographic Concentration
+### 3️⃣ Geographic Concentration
 
 Enterprise pricing power is partially geographic.
 
 - Heavy concentration in vacation markets (e.g., Hawaii).
 - Hawaii median price:
-  - Enterprise: **$219**
-  - Smaller hosts: **$155–179**
+  - Enterprise: **USD 219**
+  - Smaller hosts: **USD 155-179**
 
 Enterprise premium is amplified in high-demand vacation markets.
 
 ---
 
-## 4️⃣ Pricing Premium by Host Tier
+### 4️⃣ Pricing Premium by Host Tier
 
 Enterprise hosts:
 - Charge the highest median prices overall.
@@ -130,9 +128,9 @@ Enterprise hosts:
 
 ---
 
-## 5️⃣ Supply–Demand Signals
+### 5️⃣ Supply–Demand Signals
 
-### Availability vs Price
+#### Availability vs Price
 Correlation ≈ 0.03
 
 Availability does **not** linearly predict price.
@@ -140,12 +138,12 @@ Availability does **not** linearly predict price.
 - Low availability ≠ premium pricing
 - High-priced listings are not necessarily “scarce”
 
-### Reviews vs Availability
+#### Reviews vs Availability
 Higher availability is associated with lower review counts — suggesting that occupancy drives review accumulation.
 
 ---
 
-# 📈 Pricing Regression Model
+## 📈 Pricing Regression Model
 
 A log-linear regression model was built to predict listing price using:
 
@@ -166,7 +164,7 @@ The model captures broad location and segment effects but does not include prope
 
 ---
 
-# 🔄 Interaction Model (Room Type × City)
+## 🔄 Interaction Model (Room Type × City)
 
 To test whether pricing premiums vary by geography, an interaction model was estimated:
 
@@ -174,7 +172,7 @@ To test whether pricing premiums vary by geography, an interaction model was est
 log_price ~ room_type * city + host_tier + controls
 ```
 
-## 📊 Results
+### 📊 Results
 
 - **Baseline Adjusted R²:** 0.349  
 - **Interaction Adjusted R²:** 0.358  
